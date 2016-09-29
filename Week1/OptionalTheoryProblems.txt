@@ -1,11 +1,31 @@
 * Problem 1
 
-You are given as input an unsorted array of n distinct numbers, where n is a power of 2. Give an algorithm that identifies the second-largest number in the array, and that uses at most n+log2n−2 comparisons.
+You are given as input an unsorted array of n distinct numbers, where n is a power of 2. Give an algorithm that identifies the second-largest number in the array, and that uses at most n+log2n−2 comparisons, where log2n is the logarithm base 2 of n.
+
+Solution : We could use the tournament algorithm to construct a tournament type ( using either arrays or trees etc ), then finding the highest number(winner) will take n-1 comparisions ( # of internal nodes of tree ), and the winner will have defeated the second highest number somewhere in the `log base 2 of n` (log2n) matches ( log base 2 of n (log2n) operation ).
+
+Taking the `log base 2 of n` (log2n) numbers as new contenders, finding highest in those will take `log base 2 of n`(log2n) -1 comparisions
+
+Hence taking total comparisions of (n - 1) + (log2n -1) = n + log2n -2 comparsions
 
 * Problem 2
 
 You are a given a unimodal array of n distinct elements, meaning that its entries are in increasing order up until its maximum element, after which its elements are in decreasing order. Give an algorithm to compute the maximum element that runs in O(log n) time.
 
+Solution : unimodal array has distinct properties regarding the sorting order. Considering the bruteforce gives us O(n) wort-case complexity, O(log n) is possible only if we can somehow halve the steps to be done in each step ( some kind of divide and conquer). 
+
+As it turns out, we can do divide and conquer analysis on this problem. just like binary search, pick endpoints high and low as two extremes of the array of input elements. middle is calculated accordingly, if the value at middle is is less than the value before (left) it. then we know for sure that maximum ( modal ) lies on the left side. if the value at middle is greater than the value before (left), we can safely discard the left part as we know for sure that maximum lies on the right side.
+
+This approach is similar to binary search and thus takes O(log n) compexity.  
+
 * Problem 3
 
 You are given a sorted (from smallest to largest) array A of n distinct integers which can be positive, negative, or zero. You want to decide whether or not there is an index i such that A[i] = i. Design the fastest algorithm that you can for solving this problem.
+
+Solution : The input is distinct ( no duplicates ) and it can be any value ( -ve, 0 , +ve). we can leverage the distinct values property of input to device faster algorithm.
+
+By brute force, we can get linear worst -case complexity, so our algorithm must exhibit sub-linear time complexity.
+
+Highlighting the distinctiveness of input values, if value at index ,say e, having a[e] > e, then no-matter what , the values on the right side of index e cannot be equal their corresponding index. So that almost discard half the input size. This approach is simular to binary search , here we are checking for the index as value, if its there, we'll return true  otherwise false.
+
+As we've used binary search approach, it can be done in O(log n) time complexity.
